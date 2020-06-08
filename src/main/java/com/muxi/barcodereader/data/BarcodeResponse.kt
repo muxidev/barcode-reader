@@ -1,6 +1,6 @@
-package com.muxi.qrcodereader.data
+package com.muxi.barcodereader.data
 
-
+@Suppress("unused")
 sealed class BarcodeResponse {
     data class ContactInfo(
         var addresses: List<String> = listOf(),

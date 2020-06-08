@@ -1,8 +1,8 @@
-package com.muxi.qrcodereader.ui
+package com.muxi.barcodereader.ui
 
 import android.util.SparseArray
 import com.google.android.gms.vision.barcode.Barcode
-import com.muxi.qrcodereader.data.BarcodeResponse
+import com.muxi.barcodereader.data.BarcodeResponse
 
 interface BarCodeListener {
 

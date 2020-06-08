@@ -1,8 +1,8 @@
-package com.muxi.qrcodereader.utils
+package com.muxi.barcodereader.utils
 
 import android.util.SparseArray
 import com.google.android.gms.vision.barcode.Barcode
-import com.muxi.qrcodereader.data.BarcodeResponse
+import com.muxi.barcodereader.data.BarcodeResponse
 
 fun SparseArray<Barcode>.processBarCodeReaded(): BarcodeResponse {
     val barcode = this.valueAt(0)

@@ -1,4 +1,4 @@
-package com.muxi.qrcodereader.ui
+package com.muxi.barcodereader.ui
 
 import android.annotation.SuppressLint
 import android.os.Bundle
@@ -11,10 +11,10 @@ import com.google.android.gms.vision.CameraSource
 import com.google.android.gms.vision.Detector
 import com.google.android.gms.vision.barcode.Barcode
 import com.google.android.gms.vision.barcode.BarcodeDetector
-import com.muxi.qrcodereader.BarCodeManager
-import com.muxi.qrcodereader.R
-import com.muxi.qrcodereader.utils.navigateTo
-import com.muxi.qrcodereader.utils.processBarCodeReaded
+import com.muxi.barcodereader.BarCodeManager
+import com.muxi.barcodereader.R
+import com.muxi.barcodereader.utils.navigateTo
+import com.muxi.barcodereader.utils.processBarCodeReaded
 import java.io.IOException
 
 class Camera1Fragment: Fragment() {

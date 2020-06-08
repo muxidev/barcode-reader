@@ -1,8 +1,9 @@
-package com.muxi.qrcodereader.ui
+package com.muxi.barcodereader.ui
 
 import android.graphics.BitmapFactory
 import android.graphics.ImageFormat
 import android.graphics.YuvImage
+import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -12,6 +13,7 @@ import android.util.SparseArray
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.RequiresApi
 import androidx.camera.core.*
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.camera.view.PreviewView
@@ -20,10 +22,10 @@ import androidx.fragment.app.Fragment
 import com.google.android.gms.vision.Frame
 import com.google.android.gms.vision.barcode.Barcode
 import com.google.android.gms.vision.barcode.BarcodeDetector
-import com.muxi.qrcodereader.BarCodeManager
-import com.muxi.qrcodereader.R
-import com.muxi.qrcodereader.utils.navigateTo
-import com.muxi.qrcodereader.utils.processBarCodeReaded
+import com.muxi.barcodereader.BarCodeManager
+import com.muxi.barcodereader.R
+import com.muxi.barcodereader.utils.navigateTo
+import com.muxi.barcodereader.utils.processBarCodeReaded
 import java.io.ByteArrayOutputStream
 import java.nio.ByteBuffer
 import java.util.concurrent.ExecutorService
@@ -34,6 +36,7 @@ import kotlin.math.min
 
 typealias BarcodeListener = (barcode: SparseArray<Barcode>) -> Unit
 
+@RequiresApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
 class CameraXFragment:Fragment() {
     private lateinit var viewFinder: PreviewView
 

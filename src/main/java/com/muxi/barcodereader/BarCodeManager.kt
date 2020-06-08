@@ -1,6 +1,6 @@
-package com.muxi.qrcodereader
+package com.muxi.barcodereader
 
-import com.muxi.qrcodereader.ui.BarCodeListener
+import com.muxi.barcodereader.ui.BarCodeListener
 
 class BarCodeManager {
     var barCodeListener: BarCodeListener? = null

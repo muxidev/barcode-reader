@@ -1,4 +1,4 @@
-package com.muxi.qrcodereader.ui
+package com.muxi.barcodereader.ui
 
 import android.Manifest
 import android.content.Context
@@ -10,9 +10,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import com.muxi.qrcodereader.BarCodeManager
-import com.muxi.qrcodereader.R
-import com.muxi.qrcodereader.utils.navigateTo
+import com.muxi.barcodereader.BarCodeManager
+import com.muxi.barcodereader.R
+import com.muxi.barcodereader.utils.navigateTo
 
 private val PERMISSIONS_REQUIRED = arrayOf(
     Manifest.permission.CAMERA)

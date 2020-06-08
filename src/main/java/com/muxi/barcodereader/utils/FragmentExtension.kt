@@ -1,4 +1,4 @@
-package com.muxi.qrcodereader.utils
+package com.muxi.barcodereader.utils
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
