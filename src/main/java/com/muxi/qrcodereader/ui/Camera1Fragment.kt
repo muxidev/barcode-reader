@@ -11,19 +11,21 @@ import com.google.android.gms.vision.CameraSource
 import com.google.android.gms.vision.Detector
 import com.google.android.gms.vision.barcode.Barcode
 import com.google.android.gms.vision.barcode.BarcodeDetector
-import com.muxi.qrcodereader.QRCode
+import com.muxi.qrcodereader.BarCodeManager
 import com.muxi.qrcodereader.R
+import com.muxi.qrcodereader.utils.navigateTo
+import com.muxi.qrcodereader.utils.processBarCodeReaded
 import java.io.IOException
 
-class CameraFragment: Fragment() {
+class Camera1Fragment: Fragment() {
 
     private lateinit var barcodeDetector: BarcodeDetector
     lateinit var cameraSource: CameraSource
     lateinit var surfaceView: SurfaceView
-    lateinit var qrCode: QRCode
+    var barCodeManager: BarCodeManager = BarCodeManager.getManagerInstance()
 
     companion object {
-        val TAG = CameraFragment::class.java.simpleName
+        val TAG = Camera1Fragment::class.java.simpleName
     }
 
     override fun onCreateView(
@@ -31,16 +33,15 @@ class CameraFragment: Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.fragment_camera,container,false)
+        val view = inflater.inflate(R.layout.fragment_camera1,container,false)
         surfaceView = view.findViewById(R.id.surface_scanner)
-        qrCode = QRCode.getQRInstance()
+        barCodeManager = BarCodeManager.getManagerInstance()
         return view
     }
 
-
     private fun initReader() {
         barcodeDetector = BarcodeDetector.Builder(requireContext())
-            .setBarcodeFormats(Barcode.QR_CODE)
+            .setBarcodeFormats(Barcode.QR_CODE and Barcode.DATA_MATRIX)
             .build()
 
         cameraSource = CameraSource.Builder(requireActivity().applicationContext,barcodeDetector)
@@ -61,11 +62,10 @@ class CameraFragment: Fragment() {
                     cameraSource.start(surfaceView.holder)
                 } catch (e: IOException) {
                     Log.e(TAG,"Camera start with error: ${Log.getStackTraceString(e)}")
-                    qrCode.qrCodeListener?.onError()
+                    barCodeManager.barCodeListener?.onError()
                     requireActivity().finish()
                 }
             }
-
         })
         setBarCodeProcessor()
     }
@@ -75,20 +75,25 @@ class CameraFragment: Fragment() {
         barcodeDetector.setProcessor(object : Detector.Processor<Barcode>{
             override fun release() {}
 
-            override fun receiveDetections(p0: Detector.Detections<Barcode>?) {
-                p0?.let {
-                    qrCode.qrCodeListener?.onSuccess(it.detectedItems.valueAt(0).displayValue)
-//                    Log.d(TAG,it.detectedItems.valueAt(0).displayValue)
+            override fun receiveDetections(detector: Detector.Detections<Barcode>?) {
+                if(detector?.detectedItems?.size()!! > 0) {
+                    val handler = Handler(Looper.getMainLooper())
+                    handler.post { cameraSource.stop() }
+                    barCodeManager.barCodeListener?.onSuccess(detector.detectedItems.processBarCodeReaded())
+                } else {
+                    Log.d(TAG,"no barcode found")
                 }
-                val handler = Handler(Looper.getMainLooper())
-                handler.post { cameraSource.stop() }
-                requireActivity().finish()
             }
         })
     }
 
     override fun onResume() {
         super.onResume()
-        initReader()
+        if(!BarCodeReaderFragment.hasPermissions(requireContext())) {
+            cameraSource.stop()
+            navigateTo(BarCodeReaderFragment())
+        } else {
+            initReader()
+        }
     }
 }
