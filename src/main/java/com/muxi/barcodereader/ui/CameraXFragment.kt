@@ -24,6 +24,7 @@ import com.google.android.gms.vision.barcode.Barcode
 import com.google.android.gms.vision.barcode.BarcodeDetector
 import com.muxi.barcodereader.BarCodeManager
 import com.muxi.barcodereader.R
+import com.muxi.barcodereader.utils.fromYUVToNv21
 import com.muxi.barcodereader.utils.navigateTo
 import com.muxi.barcodereader.utils.processBarCodeReaded
 import java.io.ByteArrayOutputStream
@@ -173,13 +174,10 @@ class CameraXFragment:Fragment() {
                 image.close()
                 return
             }
-
-            val buffer = image.planes[0].buffer
-
-            val data = buffer.toByteArray()
+            val nv21 = image.fromYUVToNv21()
 
             val outputImage = ByteArrayOutputStream()
-            val yuvImage = YuvImage(data,ImageFormat.NV21,image.width,image.height,null)
+            val yuvImage = YuvImage(nv21, ImageFormat.NV21, image.width, image.height, null)
             yuvImage.compressToJpeg(image.cropRect, IMAGE_QUALITY, outputImage)
 
             val convertedByteArray = outputImage.toByteArray()
