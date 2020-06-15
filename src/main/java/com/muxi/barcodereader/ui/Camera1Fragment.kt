@@ -33,7 +33,7 @@ class Camera1Fragment: Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.fragment_camera1,container,false)
+        val view = inflater.inflate(R.layout.barcodereader_fragment_camera1,container,false)
         surfaceView = view.findViewById(R.id.surface_scanner)
         barCodeManager = BarCodeManager.getManagerInstance()
         return view

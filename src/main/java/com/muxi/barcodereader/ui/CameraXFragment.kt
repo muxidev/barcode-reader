@@ -63,7 +63,7 @@ class CameraXFragment:Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.fragment_camerax,container,false)
+        val view = inflater.inflate(R.layout.barcodereader_fragment_camerax,container,false)
         viewFinder = view.findViewById(R.id.view_finder)
         return view
     }
