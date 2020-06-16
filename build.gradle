@@ -5,6 +5,7 @@ apply plugin: 'kotlin-android-extensions'
 android {
     compileSdkVersion 29
     buildToolsVersion "29.0.3"
+    resourcePrefix 'barcodereader_'
 
     defaultConfig {
         minSdkVersion 15
